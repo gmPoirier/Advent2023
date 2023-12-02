@@ -15,12 +15,16 @@ def main():
         # loop forwards thru the line to find the first digit
         for i in range(len(line)):
             if line[i].isdigit():
-                tens = int(line[i]) * 10
+                tens = line[i]
+                break
         # loop backwards thru the line to find the last digit
         for i in reversed(range(len(line))):
             if line[i].isdigit():
-                ones = int(line[i])
-        output += tens + ones
+                ones = line[i]
+                break
+
+        line_digit = int(tens + ones)
+        output += line_digit
 
     print(output)
 
