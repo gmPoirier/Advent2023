@@ -6,20 +6,20 @@
 # as the tens place and the last digit in the line as the ones place
 
 def main():
-    file = "test"
+    file = open("input/star_01.txt", "r", encoding="utf-8")
     output = 0
 
     for line in file:
         tens = 0
         ones = 0
         # loop forwards thru the line to find the first digit
-        for i in range(10):
-            if i == 9:
-                tens = i * 10
+        for i in range(len(line)):
+            if line[i].isdigit():
+                tens = int(line[i]) * 10
         # loop backwards thru the line to find the last digit
-        for i in range(10):
-            if i == 9:
-                ones = i
+        for i in reversed(range(len(line))):
+            if line[i].isdigit():
+                ones = int(line[i])
         output += tens + ones
 
     print(output)
