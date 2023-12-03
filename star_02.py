@@ -1,9 +1,13 @@
-# Advent of Code 2023: Star 01
+#l Advent of Code 2023: Star 01
 #=============================
 # Takes a document with lines of text and outputs a single integer
 # Each line containes a number that sums to the output integer
 # The number from each line is found by using the first digit in the line 
 # as the tens place and the last digit in the line as the ones place
+
+# Currently bugged so that a digit number immediately preceding a text number 
+# caused the program to not see the text number
+# ex: 5fivezgfgcxbf3five    [(1, '5'), (1, '5')] 	 53
 
 def find_text_digits(line):
     digits = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"]
@@ -15,14 +19,17 @@ def find_text_digits(line):
     digit_at_highest = ""
 
     for i in range(len(digits)):
-        index = line.find(digits[i])
-        if index > -1:
-            if index > highest_index:
-                highest_index = index
-                digit_at_highest = i
-            if index < lowest_index:
-                lowest_index = index
+        index_low = line.find(digits[i])
+        if index_low > -1:
+            if index_low < lowest_index:
+                lowest_index = index_low
                 digit_at_lowest = i
+
+        index_high = line.rfind(digits[i])
+        if index_high > -1:
+            if index_high > highest_index:
+                highest_index = index_high
+                digit_at_highest = i
 
     return [(lowest_index, str(digit_at_lowest)),(highest_index, str(digit_at_highest))]
 
