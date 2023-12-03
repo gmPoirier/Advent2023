@@ -32,16 +32,28 @@ def is_possible(game):
 
     return True
 
+def get_game_data(game):
+    raw_id_draws_list = game.split(":")
+
+    raw_game_id = raw_id_draws_list[0]
+    raw_draws = raw_id_draws_list[1]
+
+    game_id = raw_game_id.removeprefix("Game ")
+    game_id = int(game_id)
+    
+    draws = raw_draws.strip()
+
+    return (game_id, draws)
+
 def main():
     file = open("input/day_02.txt", "r", encoding="utf-8")
     sum_possible_ids = 0
 
     for game in file:
-        game_info = str(game).split(":")
-        game_id = int(game_info[0].split(" ")[1])
-        game_data = game_info[1].strip()
-        if is_possible(game_data):
-            sum_possible_ids += game_id
+        game_data = get_game_data(game)
+
+        if is_possible(game_data[1]):
+            sum_possible_ids += game_data[0]
 
     file.close()
     print(sum_possible_ids)

@@ -30,7 +30,7 @@ def get_minimum_cubes(game):
                 if num_cubes > min_blues:
                     min_blues = num_cubes
 
-    return [min_reds, min_greens, min_blues]
+    return (min_reds, min_greens, min_blues)
 
 def get_game_data(game):
     raw_id_draws_list = game.split(":")
@@ -39,6 +39,8 @@ def get_game_data(game):
     raw_draws = raw_id_draws_list[1]
 
     game_id = raw_game_id.removeprefix("Game ")
+    game_id = int(game_id)
+
     draws = raw_draws.strip()
 
     return (game_id, draws)
