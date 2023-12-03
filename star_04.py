@@ -32,18 +32,26 @@ def get_minimum_cubes(game):
 
     return [min_reds, min_greens, min_blues]
 
+def get_game_data(game):
+    raw_id_draws_list = game.split(":")
+
+    raw_game_id = raw_id_draws_list[0]
+    raw_draws = raw_id_draws_list[1]
+
+    game_id = raw_game_id.removeprefix("Game ")
+    draws = raw_draws.strip()
+
+    return (game_id, draws)
+
 def main():
     file = open("input/day_02.txt", "r", encoding="utf-8")
     sum_power = 0
 
     for game in file:
         power = 1
-
-        game_info = str(game).split(":")
-        game_id = int(game_info[0].split(" ")[1])
-        game_data = game_info[1].strip()
+        game_data = get_game_data(game)
         
-        for cubes in get_minimum_cubes(game_data):
+        for cubes in get_minimum_cubes(game_data[1]):
             power = power * cubes
 
         sum_power += power
