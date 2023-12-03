@@ -2,16 +2,16 @@
 #=============================
 # Takes a document with lines of text and outputs an single integer
 # Each line represents a number of games where cubes are pulled from a bag
-# Given a bag with a certain number of each color of cube, which games listed
-# are possible?
-# Sum the IDs of possible games to get the output integer
+# Given a bag with a certain number of each color of cube, what is the fewest
+# number of each colored cube to make the game possible?
+# Multiply the minimum number of each color cube together to get a game's power
+# Sum the powers of every game to get the output integer
 
-# Given set of cubes
-RED = 12
-GREEN = 13
-BLUE = 14
+def get_minimum_cubes(game):
+    min_reds = 0
+    min_greens = 0
+    min_blues = 0
 
-def is_possible(game):
     draws = str(game).split(";")
 
     for draw in draws:
@@ -21,30 +21,35 @@ def is_possible(game):
             cube = cube.strip()
             num_cubes = int(cube.split(" ")[0])
             if "red" in cube:
-                if num_cubes > RED:
-                    return False
+                if num_cubes > min_reds:
+                    min_reds = num_cubes
             elif "green" in cube:
-                if num_cubes > GREEN:
-                    return False
+                if num_cubes > min_greens:
+                    min_greens = num_cubes
             elif "blue" in cube:
-                if num_cubes > BLUE:
-                    return False
+                if num_cubes > min_blues:
+                    min_blues = num_cubes
 
-    return True
+    return [min_reds, min_greens, min_blues]
 
 def main():
     file = open("input/day_02.txt", "r", encoding="utf-8")
-    sum_possible_ids = 0
+    sum_power = 0
 
     for game in file:
+        power = 1
+
         game_info = str(game).split(":")
         game_id = int(game_info[0].split(" ")[1])
         game_data = game_info[1].strip()
-        if is_possible(game_data):
-            sum_possible_ids += game_id
+        
+        for cubes in get_minimum_cubes(game_data):
+            power = power * cubes
+
+        sum_power += power
 
     file.close()
-    print(sum_possible_ids)
+    print(sum_power)
 
 if __name__ == "__main__":
     main()
