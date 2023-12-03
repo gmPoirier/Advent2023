@@ -1,4 +1,4 @@
-#l Advent of Code 2023: Star 01
+# Advent of Code 2023: Star 02
 #=============================
 # Takes a document with lines of text and outputs a single integer
 # Each line containes a number that sums to the output integer
