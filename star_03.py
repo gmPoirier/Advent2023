@@ -12,32 +12,35 @@ GREEN = 13
 BLUE = 14
 
 def is_possible(game):
-    draws = game.split(";")
+    draws = str(game).split(";")
 
     for draw in draws:
         cubes = draw.split(",")
         
         for cube in cubes:
+            cube = cube.strip()
             num_cubes = int(cube.split(" ")[0])
             if "red" in cube:
                 if num_cubes > RED:
-                    return false
+                    return False
             elif "green" in cube:
                 if num_cubes > GREEN:
-                    return false
+                    return False
             elif "blue" in cube:
                 if num_cubes > BLUE:
-                    return false
+                    return False
 
-    return true
+    return True
 
 def main():
     file = open("input/day_02.txt", "r", encoding="utf-8")
     sum_possible_ids = 0
 
     for game in file:
-        game_id = 0
-        if is_possible(game):
+        game_info = str(game).split(":")
+        game_id = int(game_info[0].split(" ")[1])
+        game_data = game_info[1].strip()
+        if is_possible(game_data):
             sum_possible_ids += game_id
 
     file.close()
