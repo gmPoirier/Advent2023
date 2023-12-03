@@ -1,4 +1,4 @@
-# Advent of Code 2023: Star 03
+# Advent of Code 2023: Star 04
 #=============================
 # Takes a document with lines of text and outputs an single integer
 # Each line represents a number of games where cubes are pulled from a bag
