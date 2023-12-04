@@ -20,9 +20,17 @@ def main():
 
         numbers = num.finditer(line)
         for match in numbers:
+
             loc = match.span()
-            if sym.search(prev, loc[0], loc[1]):
-                print(match)
+            start = loc[0]
+            end = loc[1]
+
+            if loc[0] > 0:
+                start = loc[0] - 1
+            if loc[1] < len(line) - 1:
+                end = loc[1] + 1
+            if sym.search(prev, start, end):
+                print(match.group(0))
 
         prev = line
 
